@@ -2,7 +2,7 @@
 export default function fetchAllProducts() {
   return new Promise(async (resolve) => {
     //TODO: we'll not hardcore server url
-    const response = await fetch("http://localhost:3420/products");
+    const response = await fetch("http://localhost:8080/products");
     const data = await response.json();
     resolve({ data });
   });
@@ -35,9 +35,28 @@ export function fetchProductsByFilters(filter, sort, pagination) {
 
   return new Promise(async (resolve) => {
     //TODO: we'll NOT hardcore server url here
-    const response = await fetch("http://localhost:3420/products?"+queryString);
+    const response = await fetch("http://localhost:8080/products?"+queryString);
     const data = await response.json();
     const totalItems = await response.headers.get('X-Total-Count') // in json-server header response
     resolve({ data: {products: data, totalItems: +totalItems} });
   });
+}
+
+
+export function fetchCategories() {
+  return new Promise(async (resolve) =>{
+    const response = await fetch('http://localhost:8080/categories') 
+    const data = await response.json()
+    resolve({data})
+  }
+  );
+}
+
+export function fetchBrands() {
+  return new Promise(async (resolve) =>{
+    const response = await fetch('http://localhost:8080/brands') 
+    const data = await response.json()
+    resolve({data})
+  }
+  );
 }
